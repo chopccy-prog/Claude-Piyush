@@ -1,0 +1,3 @@
+# Salvage mode and JSON->CSV need only the Python standard library (3.9+).
+# The optional AES decode path needs 'cryptography'; RC4 and XOR are built in.
+# cryptography>=41    # only if a keyspec uses cipher: aes-cbc / aes-ecb

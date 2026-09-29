@@ -1,0 +1,10 @@
+{
+  "_comment": "Copy to <yourfile>.earkey.json and fill in the real cipher/key when Waters (or a key holder) provides it. Then run: python3 extract_ear.py --src-dir . --res-dir out --mode decode",
+  "format": "ear-extractor/keyspec",
+  "cipher": "rc4",
+  "key_hex": "PUT_THE_REAL_KEY_HEX_HERE",
+  "iv_hex": "",
+  "marker": ".gCi2k1",
+  "scope": "per-chunk",
+  "strip_marker": true
+}
