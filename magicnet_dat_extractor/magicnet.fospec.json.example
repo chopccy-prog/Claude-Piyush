@@ -1,0 +1,21 @@
+{
+  "format": "magicnet-extractor/fospec",
+  "_comment": "EXAMPLE ONLY. Offsets/types below are placeholders until the real objects.dat layout is mapped. Copy to magicnet.fospec.json next to objects.dat and fill in.",
+  "page_size": 4096,
+  "data_start": 0,
+  "string_encoding": "utf-16-le",
+  "classes": {
+    "Determination": {
+      "signature": {"offset": 0, "hex": "0100"},
+      "record_length": 128,
+      "length_field": null,
+      "fields": [
+        {"name": "ident", "offset": 8, "type": "lstring"},
+        {"name": "sample_position", "offset": 40, "type": "u16"},
+        {"name": "started", "offset": 48, "type": "date7"},
+        {"name": "result_value", "offset": 56, "type": "f64"}
+      ],
+      "date_field": "started"
+    }
+  }
+}
