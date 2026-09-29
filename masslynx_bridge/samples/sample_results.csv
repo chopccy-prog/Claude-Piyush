@@ -1,0 +1,4 @@
+Sample Name,Sample ID,Vial,Injection,Compound,RT,Area,Height,Calculated Conc,Units,File Name,User,Method
+STD_1,STD1,1,1,Caffeine,3.42,10543,2201,5.01,ug/mL,std1.raw,jdoe,Caffeine_Pos
+STD_1,STD1,1,1,Theobromine,2.10,8412,1780,4.88,ug/mL,std1.raw,jdoe,Caffeine_Pos
+QC_1,QC1,5,1,Caffeine,3.41,10201,2150,4.85,ug/mL,qc1.raw,jdoe,Caffeine_Pos

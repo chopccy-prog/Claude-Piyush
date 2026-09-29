@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "masslynx-bridge"
+version = "0.1.0"
+description = "Continuously ship Waters MassLynx audit-trail and result exports to a central ERP/LIMS server."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31,<3",
+    "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+sqldb = ["SQLAlchemy>=2.0,<3"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+masslynx-bridge = "masslynx_bridge.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["masslynx_bridge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

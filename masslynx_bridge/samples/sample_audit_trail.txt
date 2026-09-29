@@ -1,0 +1,4 @@
+Date/Time	User	Full Name	Event	Description	Application	Computer
+2025-10-18 08:59:12	jdoe	Jane Doe	Login	User logged in to MassLynx Security	MassLynx	LCMS-PC1
+2025-10-18 09:03:47	jdoe	Jane Doe	Method Edit	Modified MS method "Caffeine_Pos"	MassLynx	LCMS-PC1
+2025-10-18 09:20:05	jdoe	Jane Doe	Sample List Run	Started acquisition batch B_18102025	MassLynx	LCMS-PC1

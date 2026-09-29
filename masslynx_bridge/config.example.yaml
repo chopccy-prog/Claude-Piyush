@@ -1,0 +1,63 @@
+# MassLynx bridge configuration example.
+# Copy to config.yaml and edit. Secrets should come from environment variables
+# (see comments) rather than being written here.
+
+# How often to rescan the export folders, in seconds.
+poll_interval_seconds: 15
+
+# Where to persist per-file cursors so nothing is re-sent after a restart.
+state_path: "state/bridge_state.json"
+
+log_level: "INFO"
+
+# Stable identifier for THIS instrument PC. Attached to every record so the
+# central server knows the source. Change per machine.
+instrument_id: "MASSLYNX-LAB1-LCMS01"
+
+# ---------------------------------------------------------------------------
+# Where records go. Choose ONE sink type.
+# ---------------------------------------------------------------------------
+sink:
+  # --- Default: HTTPS JSON POST to your ERP endpoint ---
+  type: "https"
+  url: "https://erp.internal.example.com/api/instruments/masslynx/ingest"
+  # Do NOT put the token here in production. Set it via env instead:
+  #   MASSLYNX_BRIDGE_SINK_TOKEN=xxxxx
+  token: ""
+  auth_header: "Authorization"
+  auth_scheme: "Bearer"
+  verify_tls: true
+  # For an internal CA, point to its bundle:
+  ca_bundle: ""
+  timeout_seconds: 30
+  batch_size: 200
+
+  # --- Alternative: direct SQL insert ---
+  # type: "sqldb"
+  # Prefer the env var MASSLYNX_BRIDGE_SINK_DB_URL for the full URL+password.
+  # db_url: "postgresql+psycopg://erp:PASSWORD@db.internal:5432/lims"
+  # db_table: "instrument_records"
+
+  # --- Testing: print to stdout, send nothing ---
+  # type: "stdout"
+
+# ---------------------------------------------------------------------------
+# What to watch. One block per export folder. Point these at the folders that
+# MassLynx / LogLynx / OpenLynx actually write to on this PC.
+# ---------------------------------------------------------------------------
+collectors:
+  - name: "audit_trail"
+    kind: "audit_trail"           # selects the audit-trail parser
+    watch_dir: "C:/MassLynx/AuditExports"
+    file_glob: "*.txt"
+    encoding: "latin-1"           # MassLynx exports are usually latin-1
+    delimiter: "\t"               # LogLynx audit exports are often tab-delimited
+    enabled: true
+
+  - name: "results"
+    kind: "results"               # selects the results parser
+    watch_dir: "C:/MassLynx/ResultExports"
+    file_glob: "*.csv"
+    encoding: "latin-1"
+    delimiter: ","
+    enabled: true

@@ -1,0 +1,21 @@
+# Runtime state (per-machine cursors) - never commit
+state/
+*.state.json
+
+# Local config with secrets
+config.yaml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Logs
+logs/
+*.log
+
+# Never commit real instrument backups / exports
+*.ear

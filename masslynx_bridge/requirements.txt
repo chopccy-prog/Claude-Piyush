@@ -1,0 +1,8 @@
+# Core runtime dependencies
+requests>=2.31,<3
+PyYAML>=6.0,<7
+
+# Optional: only needed if you use the SQL database sink (sink.type: sqldb)
+# SQLAlchemy>=2.0,<3
+# psycopg[binary]>=3.1     # for PostgreSQL
+# PyMySQL>=1.1             # for MySQL/MariaDB

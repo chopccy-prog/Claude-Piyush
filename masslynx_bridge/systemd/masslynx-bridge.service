@@ -1,0 +1,33 @@
+# systemd unit for running the bridge on a Linux host (e.g. a data-collection
+# gateway that has the MassLynx export share mounted). On the MassLynx PC
+# itself, see docs/SETUP_WINDOWS.md instead.
+#
+# Install:
+#   sudo cp masslynx-bridge.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now masslynx-bridge
+#
+# Put the API token in an environment file readable only by root:
+#   echo 'MASSLYNX_BRIDGE_SINK_TOKEN=your-secret' | sudo tee /etc/masslynx-bridge.env
+#   sudo chmod 600 /etc/masslynx-bridge.env
+
+[Unit]
+Description=MassLynx to ERP bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/masslynx_bridge
+EnvironmentFile=-/etc/masslynx-bridge.env
+ExecStart=/usr/bin/python3 -m masslynx_bridge --config /opt/masslynx_bridge/config.yaml
+Restart=always
+RestartSec=5
+# Hardening: the bridge only needs to read exports and reach the network.
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/masslynx_bridge/state
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
