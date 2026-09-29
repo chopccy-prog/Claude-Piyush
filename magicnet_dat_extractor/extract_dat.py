@@ -13,7 +13,25 @@ but for the MagIC Net database directory:
 
 Modes
 -----
-salvage  (default; needs only the database folder)
+decode   (default) built-in MagIC Net 3.3 object-model decoder, no key or
+         dictionary needed. Writes one CSV + JSON per table, like the Access
+         extractor's --all output:
+    * Determinations.csv  one row per determination version (version 0 = as
+                          acquired, 1 = evaluated, 2 = re-integrated/reviewed;
+                          is_latest marks the newest version of each GUID)
+    * Samples.csv         sample ident and sample properties (POSITION, VOLUME,
+                          DILUTION, AMOUNT, INFO1, ...)
+    * Analyses.csv        analyses per determination (e.g. PHOSPHATE BINDING CAPACITY, PRESSURE)
+    * Results.csv         every result variable RS.<analysis>.<component>.<quantity>
+                          with value, display value, unit and limits
+    * Peaks.csv           peak metrics and the 9 (time, signal) points per identified peak
+    * History.csv         modification and review/sign entries (who, when, what)
+    * Methods.csv         distinct methods with author and comments
+    * EventLog.csv        the engine event log
+    * _extract_summary.json
+    --from-date/--to-date filter on the determination start time;
+    --latest-only keeps only the newest version of each determination.
+salvage  (needs only the database folder)
     * EventLog.csv        every event-log record (database open/close, engine
                           start, counters) filtered by --from-date/--to-date
     * Strings.csv         every readable string in objects.dat with page and
@@ -21,16 +39,15 @@ salvage  (default; needs only the database folder)
     * _inspect_report.json, strings_top.csv, class_candidates.csv,
       keyword_hits.csv    the forensic report from fo_inspect
     * _extract_summary.json
-decode   (needs a *.fospec.json describing the page/object layout)
-    * <Class>.csv and <Class>.json per class (or --table Class), filtered by
-      the class's date field; _extract_summary.json with row counts
+spec     generic decode driven by a *.fospec.json layout file (--spec)
 inspect
     * only the forensic report
 
 Usage
 -----
     python3 extract_dat.py --db-dir "C:\\ProgramData\\Metrohm\\MagIC Net\\Data\\IC_Determination\\Magic Net 2025" --res-dir out
-    python3 extract_dat.py --db-dir . --res-dir out --mode decode --all --from-date 2025-04-01 --to-date 2025-07-31
+    python3 extract_dat.py --db-dir . --res-dir out --from-date 2025-04-01 --to-date 2025-07-31 --latest-only
+    python3 extract_dat.py --db-dir . --res-dir out --table Results
 """
 from __future__ import annotations
 
@@ -47,6 +64,7 @@ import sys
 import fo_decode
 import fo_eventlog
 import fo_inspect
+import fo_magicnet
 
 DT_FORMATS = ("%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S.%f",
               "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d")
@@ -207,19 +225,61 @@ def decode_tables(db_dir, res_dir, spec_path, table, all_tables, start, end, ind
     return summary
 
 
-NO_SPEC_HELP = """\
-decode mode needs a *.fospec.json describing the FastObjects page/object layout,
-and none was found in --db-dir (or given with --spec).
+MAGICNET_TABLES = ("Determinations", "Samples", "Analyses", "Results", "Peaks", "History", "Methods", "EventLog")
 
-The MagIC Net database is a Versant FastObjects 10 object store. It is not
-encrypted, but the object layout is proprietary and has to be mapped from the
-real objects.dat first. Steps:
-  1. run:  python3 extract_dat.py --db-dir <db> --res-dir out        (salvage)
-  2. send out/_inspect_report.json, out/strings_top.csv and
-     out/class_candidates.csv for analysis; the layout mapping becomes a
-     magicnet.fospec.json (see magicnet.fospec.json.example)
-  3. put the fospec next to objects.dat and re-run with --mode decode
-Until then, the supported route is MagIC Net's own CSV/XML result export (see README).
+
+def decode_magicnet(db_dir, res_dir, start, end, latest_only, tables_wanted, indent) -> dict:
+    objects_dat = os.path.join(db_dir, "objects.dat")
+    print("indexing objects.dat ...", flush=True)
+    db = fo_magicnet.MagicNetDB(objects_dat)
+    print("records : %d in %d classes" % (db.record_count, len(db.class_counts)))
+    ndet = db.class_counts.get(fo_magicnet.CLASS["determination"], 0)
+    if not ndet:
+        raise ValueError("no determination objects (class 226) found; is this a MagIC Net 3.3 "
+                         "IC_Determination database? classes seen: %s" % sorted(db.class_counts)[:20])
+    print("decoding %d determination records ..." % ndet, flush=True)
+    dets = list(fo_magicnet.iter_determinations(db))
+    fo_magicnet.mark_latest(dets)
+    total = len(dets)
+    if start or end:
+        dets = [d for d in dets if in_range(d["start_time"], start, end)]
+    if latest_only:
+        dets = [d for d in dets if d["is_latest"]]
+    tabs = fo_magicnet.tables(dets)
+    tabs["Methods"] = fo_magicnet.methods_table(dets)
+    summary = {"records": db.record_count, "classes": len(db.class_counts),
+               "determination_records": total, "determinations_unique": len({d["guid"] for d in dets}),
+               "determinations_exported": len(dets), "latest_only": latest_only,
+               "date_range": {"from": start.isoformat() if start else None, "to": end.isoformat() if end else None},
+               "tables": {}}
+    for name in MAGICNET_TABLES:
+        if tables_wanted and name not in tables_wanted:
+            continue
+        if name == "EventLog":
+            if os.path.isdir(os.path.join(db_dir, "eventlog")):
+                meta = salvage_eventlog(db_dir, res_dir, start, end)
+                summary["tables"]["EventLog"] = {"rows": meta["row_count"], "date_column": "timestamp"}
+                print("wrote %d rows -> %s" % (meta["row_count"], os.path.join(res_dir, "EventLog.csv")))
+            continue
+        rows = tabs.get(name, [])
+        fields = []
+        for r in rows:
+            for k in r:
+                if k not in fields:
+                    fields.append(k)
+        write_csv(os.path.join(res_dir, name + ".csv"), fields, rows)
+        write_json(rows, os.path.join(res_dir, name + ".json"), indent)
+        summary["tables"][name] = {"rows": len(rows), "date_column": "start_time" if rows and "start_time" in rows[0] else None}
+        print("wrote %d rows -> %s" % (len(rows), os.path.join(res_dir, name + ".csv")))
+    db.close()
+    return summary
+
+
+NO_SPEC_HELP = """\
+spec mode needs a *.fospec.json describing a record layout (see
+magicnet.fospec.json.example), and none was found in --db-dir or given with
+--spec. For MagIC Net 3.3 determination databases use the default decode mode,
+which has the layout built in.
 """
 
 
@@ -229,10 +289,11 @@ def main(argv=None) -> int:
     ap.add_argument("--res-dir", required=True, help="output folder")
     ap.add_argument("--from-date", default=None, help="inclusive lower bound (YYYY-MM-DD)")
     ap.add_argument("--to-date", default=None, help="inclusive upper bound (YYYY-MM-DD)")
-    ap.add_argument("--mode", default="salvage", choices=("salvage", "decode", "inspect"))
-    ap.add_argument("--all", action="store_true", help="decode: every class in the fospec")
-    ap.add_argument("--table", default=None, help="decode: one class name from the fospec")
-    ap.add_argument("--spec", default=None, help="decode: fospec path (default: auto-discover *.fospec.json in --db-dir)")
+    ap.add_argument("--mode", default="decode", choices=("decode", "salvage", "inspect", "spec"))
+    ap.add_argument("--all", action="store_true", help="all tables (default)")
+    ap.add_argument("--table", default=None, help="one table: Determinations, Samples, Analyses, Results, Peaks, History, Methods, EventLog (spec mode: class name)")
+    ap.add_argument("--latest-only", action="store_true", help="decode: only the newest version of each determination")
+    ap.add_argument("--spec", default=None, help="spec mode: fospec path (default: auto-discover *.fospec.json in --db-dir)")
     ap.add_argument("--page-size", type=int, default=None, help="override detected page size")
     ap.add_argument("--no-strings", action="store_true", help="salvage: skip Strings.csv (large)")
     ap.add_argument("--indent", type=int, default=2, help="JSON indent")
@@ -257,6 +318,20 @@ def main(argv=None) -> int:
                               "to": end.isoformat() if end else None}}
 
     if args.mode == "decode":
+        try:
+            wanted = {args.table} if args.table and not args.all else None
+            if wanted and not wanted <= set(MAGICNET_TABLES):
+                print("error: unknown table %r; choose from %s" % (args.table, MAGICNET_TABLES), file=sys.stderr)
+                return 2
+            summary.update(decode_magicnet(db_dir, args.res_dir, start, end, args.latest_only, wanted, args.indent))
+        except (ValueError, OSError) as e:
+            print("error: " + str(e), file=sys.stderr)
+            return 3
+        write_json(summary, os.path.join(args.res_dir, "_extract_summary.json"), args.indent)
+        print("summary -> " + os.path.join(args.res_dir, "_extract_summary.json"))
+        return 0
+
+    if args.mode == "spec":
         spec_path = args.spec or fo_decode.find_spec(db_dir)
         if not spec_path:
             print(NO_SPEC_HELP, file=sys.stderr)
@@ -264,7 +339,7 @@ def main(argv=None) -> int:
             write_json(summary, os.path.join(args.res_dir, "_extract_summary.json"), args.indent)
             return 3
         try:
-            summary.update(decode_tables(db_dir, args.res_dir, spec_path, args.table, args.all, start, end, args.indent))
+            summary.update(decode_tables(db_dir, args.res_dir, spec_path, args.table, args.all or not args.table, start, end, args.indent))
         except fo_decode.SpecError as e:
             print("error: " + str(e), file=sys.stderr)
             return 3

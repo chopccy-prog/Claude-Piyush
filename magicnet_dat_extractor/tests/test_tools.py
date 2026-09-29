@@ -130,7 +130,7 @@ def test_inspector_flags_random_index_as_not_plaintext(tmp_path):
 def test_salvage_mode_writes_eventlog_and_strings(tmp_path):
     db = _fake_db(tmp_path)
     res = tmp_path / "out"
-    rc = extract_dat.main(["--db-dir", str(db), "--res-dir", str(res),
+    rc = extract_dat.main(["--db-dir", str(db), "--res-dir", str(res), "--mode", "salvage",
                            "--from-date", "2024-01-01", "--to-date", "2024-12-31"])
     assert rc == 0
     for name in ("EventLog.csv", "EventLog.meta.json", "Strings.csv", "_inspect_report.json",
@@ -147,7 +147,7 @@ def test_salvage_mode_writes_eventlog_and_strings(tmp_path):
 
 def test_decode_without_spec_explains_and_fails(tmp_path, capsys):
     db = _fake_db(tmp_path)
-    rc = extract_dat.main(["--db-dir", str(db), "--res-dir", str(tmp_path / "o"), "--mode", "decode", "--all"])
+    rc = extract_dat.main(["--db-dir", str(db), "--res-dir", str(tmp_path / "o"), "--mode", "spec", "--all"])
     assert rc == 3
     assert "fospec" in capsys.readouterr().err
 
@@ -155,7 +155,7 @@ def test_decode_without_spec_explains_and_fails(tmp_path, capsys):
 def test_decode_with_spec(tmp_path):
     db = _fake_db(tmp_path, with_spec=True)
     res = tmp_path / "o"
-    rc = extract_dat.main(["--db-dir", str(db / "objects.dat"), "--res-dir", str(res), "--mode", "decode", "--all"])
+    rc = extract_dat.main(["--db-dir", str(db / "objects.dat"), "--res-dir", str(res), "--mode", "spec", "--all"])
     assert rc == 0
     rows = json.loads((res / "Page.json").read_text())
     assert len(rows) == 100                       # 120 pages minus 20 zero pages

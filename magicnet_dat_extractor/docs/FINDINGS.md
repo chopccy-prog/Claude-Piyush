@@ -130,7 +130,14 @@ made an ordinary Access parser work. Here:
 and the tooling in this folder is built for exactly that, in the same CLI
 shape as the Access extractor so the ERP side sees the same kind of output.
 
-## 6. Blocker on this side: the 10 MB connector limit
+## 6. Getting the bytes (resolved)
+
+The Drive connector used in this session refuses downloads above about 5 MB,
+so the 432 MB file was split into 9 MB parts with `split_dat.py`, the parts
+folder was shared by link, and the parts were fetched directly and re-joined
+with SHA-256 verification. Sections 8 and 9 come from the real bytes.
+
+## 6a. Blocker on this side: the 10 MB connector limit (historical)
 
 The Drive connector available in this session refuses downloads above 10 MB
 (`objects.dat` is 432 MB; the smallest backup copy is 61 MB; the recovery file
@@ -160,3 +167,65 @@ analysed. To go further, one of these is needed:
   keyword and entropy test answers this in seconds on the real file).
 - Whether a FastObjects 12/14 `ptxml.exe` can open a 10.0.9 database without
   migrating it.
+
+## 8. Measured: the FastObjects record format in objects.dat
+
+Every object is a record on a 16-byte boundary; the gap up to the next
+boundary is filled with letters `A`..`P`. The complete file walks with this
+rule: 2,921,281 records, 148 class ids, no inconsistency.
+
+```
+offset  size  field
+0       8     recid      unique record id (u64 LE, high dword 0)
+8       4     len        total = 14 + len
+12      2     check      high byte always 0x54
+14      4     objnum     object number; references point to it
+18      2     0
+20      2     class_id   schema class id
+22      2     class version
+24      2     0
+26      ...   body
+```
+
+Body = offset table + fixed part + variable members:
+
+```
+[u32 x k]   offsets (relative to body start) of the variable members, ending
+            with the body length; the first entry is where the variable part starts
+[fixed]     typed values back to back: references, i64 Java-time dates,
+            doubles, u32/u16/u8
+[members]   string   u16 L, tag fd01 (UTF-16LE) | 0101 (8-bit) | fdfe (null), chars, 00 ff
+            blob     u32 n+4, u32 n, n bytes (Java-serialized enum, or gzip'ed curve)
+            refs     u32 count, count x reference
+reference = u32 recid (often 0), u64 objnum, u16 class_id ; all zero = null
+numbers in strings: "NN<decimal of the IEEE-754 bit pattern>"
+```
+
+The file header (page 0) names the schema dictionary `ICDetermSch`; the
+dictionary itself is not needed because the class layouts below were mapped
+from the data.
+
+## 9. Measured: the MagIC Net 3.3 object model (class ids)
+
+| class | count | meaning |
+|---|---|---|
+| 226 | 1,289 | Determination version: guid, program version, client ip/pc, user login/full name/group; u32 determination number (fixed +16), version (+28), start time (+48); refs 133 timing, 135 sample, 134 statement results, 111 devices, 180 method, 164 history; ref arrays: 210 analyses, 236 reviews |
+| 180 | 1,468 | Method info: name, guid, author login/name, comments, saved date |
+| 135 / 138 | 1,468 / 9,264 | Sample: ident + 4 strings; properties POSITION, VOLUME, DILUTION, AMOUNT, INFO1 (value, display, name, unit) |
+| 133 | 1,468 | Run time (value, display) |
+| 210 | 2,596 | Analysis (name); refs 189 curve, 115 calibration, 956/154 display; array of 234 |
+| 234 | 4,233 | Result set: code, `analysis.component`; refs 130 peak link, 242 results |
+| 242 | 175,626 | Result: value, display, low/high limit, unit, `RS.<analysis>.<component>.<quantity>`, flags |
+| 130 / 219 / 110 | 4,233 / 4,233 / 38,097 | Peak link, peak metrics, (time, signal) points |
+| 164 / 236 | 301 / 603 | Modification entries; review / release entries |
+| 189 | 2,827 | Chromatogram: units, scaling doubles, gzip'ed big-endian samples |
+| 227 / 151 / 249 / 208 | 2.27 M | Small value / link objects of the method statement model |
+| 125 / 134 | 49,242 / 1,468 | Statement results (`SR{1}.Main program{1}.FIN` = `#1`) |
+| 65498, 956, 154 | | Display / chart settings |
+| 73, 75 | 3 | FastObjects admin users and groups (`POETADM`, `PtDefault`) |
+
+Determination versions: 0 = as acquired (`status 3`), 1 = evaluated, 2 =
+re-integrated and reviewed (only identified components kept, carries the
+history and review entries). `is_latest` marks the newest version per GUID.
+Java-serialized blobs hold only enum constants (`SampleDataPropEnum`,
+`StmtEnum`, `ModuleEnum`, `DeviceEnum`, `CalibrationModeEnum`, ...).
