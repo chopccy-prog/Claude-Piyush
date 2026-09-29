@@ -44,6 +44,9 @@ PAGE_CANDIDATES = (512, 1024, 2048, 4096, 8192, 16384, 32768, 65536)
 ASCII_RUN = re.compile(rb"[\x20-\x7e]{6,}")
 UTF16_RUN = re.compile(rb"(?:[\x20-\x7e]\x00){6,}")
 WORD_LIKE = re.compile(r"[A-Za-z]{4,}")
+# Runs of one repeated byte (FastObjects fill/tag bytes 0x41..0x50 print as A..P)
+# and strings made of at most two distinct characters are storage noise, not text.
+NOISE = re.compile(r"^(.)\1{4,}.?$")
 IDENTIFIER = re.compile(r"^(?:[a-z][a-z0-9_]*\.)+[A-Za-z_][A-Za-z0-9_]*$|^[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)+$")
 DATE7 = struct.Struct("<HBBBBB")
 
@@ -240,7 +243,7 @@ def scan_file(path: str, page_size: int | None, pages_csv: str | None,
                     break
                 total_ascii_runs += 1
                 s = m.group().decode("ascii")
-                if WORD_LIKE.search(s):
+                if WORD_LIKE.search(s) and not NOISE.match(s) and len(set(s)) > 2:
                     ascii_counts[s] += 1
                     ascii_first.setdefault(s, pos + m.start())
             for m in UTF16_RUN.finditer(buf):
@@ -248,7 +251,7 @@ def scan_file(path: str, page_size: int | None, pages_csv: str | None,
                     break
                 total_utf16_runs += 1
                 s = m.group().decode("utf-16-le")
-                if WORD_LIKE.search(s):
+                if WORD_LIKE.search(s) and not NOISE.match(s) and len(set(s)) > 2:
                     utf16_counts[s] += 1
                     utf16_first.setdefault(s, pos + m.start())
             pos += chunk

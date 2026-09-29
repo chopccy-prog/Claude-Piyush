@@ -1,0 +1,1009 @@
+{
+  "db_dir": "B:\\DataAnalysis\\MagicNet 3.3 (I-B2-162)\\MagicNet 3.3 (I-B2-162)\\MagicNet 3.3 (I-B2-162)\\Magic Net 2025",
+  "dbinfo": {
+    "comments": [
+      "DBVersion",
+      "Tue Oct 14 10:25:32 IST 2025"
+    ],
+    "DBVersion": "33",
+    "ProgID": "200"
+  },
+  "files": [
+    {
+      "file": "objects.dat",
+      "bytes": 452984832,
+      "mib": 432.0,
+      "exact_mib_multiple": true,
+      "header_hex_256": "00000300000059b001000000000040000000c0010000dccdcfd801000000ffffffff0c006f626a656374732e64617400010000e90701020a220ae9070a0e0a191c15ac9d4400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "header_ascii_256": "......Y.......@.....................objects.dat.........\"...........D...........................................................................................................................................................................................",
+      "sampled_entropy": 4.824,
+      "sampled_printable_ratio": 0.47,
+      "last_nonzero_offset": 452984832,
+      "trailing_zero_bytes": 0,
+      "page_size_detection": {
+        "page_size_guess": 512,
+        "best_top3_share": 0.254,
+        "scores": {
+          "512": {
+            "boundaries_sampled": 4004,
+            "top3_header_share": 0.218,
+            "distinct_headers": 2291,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "00ff4141",
+                375
+              ],
+              [
+                "00ff4949",
+                373
+              ],
+              [
+                "650000ff",
+                126
+              ],
+              [
+                "00000000",
+                100
+              ],
+              [
+                "ff0400fd",
+                74
+              ]
+            ]
+          },
+          "1024": {
+            "boundaries_sampled": 4022,
+            "top3_header_share": 0.253,
+            "distinct_headers": 2328,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "00ff4141",
+                775
+              ],
+              [
+                "650000ff",
+                142
+              ],
+              [
+                "00000000",
+                99
+              ],
+              [
+                "ff0400fd",
+                77
+              ],
+              [
+                "5f005000",
+                42
+              ]
+            ]
+          },
+          "2048": {
+            "boundaries_sampled": 4022,
+            "top3_header_share": 0.253,
+            "distinct_headers": 2328,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "00ff4141",
+                775
+              ],
+              [
+                "650000ff",
+                142
+              ],
+              [
+                "00000000",
+                99
+              ],
+              [
+                "ff0400fd",
+                77
+              ],
+              [
+                "5f005000",
+                42
+              ]
+            ]
+          },
+          "4096": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.243,
+            "distinct_headers": 2329,
+            "zero_page_share": 0.001,
+            "top_headers": [
+              [
+                "00ff4141",
+                765
+              ],
+              [
+                "650000ff",
+                122
+              ],
+              [
+                "00000000",
+                110
+              ],
+              [
+                "ff0400fd",
+                73
+              ],
+              [
+                "5f004500",
+                53
+              ]
+            ]
+          },
+          "8192": {
+            "boundaries_sampled": 4254,
+            "top3_header_share": 0.227,
+            "distinct_headers": 2489,
+            "zero_page_share": 0.001,
+            "top_headers": [
+              [
+                "00ff4141",
+                734
+              ],
+              [
+                "650000ff",
+                132
+              ],
+              [
+                "00000000",
+                99
+              ],
+              [
+                "ff0400fd",
+                86
+              ],
+              [
+                "5f004500",
+                64
+              ]
+            ]
+          },
+          "16384": {
+            "boundaries_sampled": 4608,
+            "top3_header_share": 0.254,
+            "distinct_headers": 2589,
+            "zero_page_share": 0.002,
+            "top_headers": [
+              [
+                "00ff4141",
+                888
+              ],
+              [
+                "00000000",
+                144
+              ],
+              [
+                "650000ff",
+                138
+              ],
+              [
+                "ff0400fd",
+                86
+              ],
+              [
+                "5f005000",
+                59
+              ]
+            ]
+          },
+          "32768": {
+            "boundaries_sampled": 4608,
+            "top3_header_share": 0.254,
+            "distinct_headers": 2589,
+            "zero_page_share": 0.002,
+            "top_headers": [
+              [
+                "00ff4141",
+                888
+              ],
+              [
+                "00000000",
+                144
+              ],
+              [
+                "650000ff",
+                138
+              ],
+              [
+                "ff0400fd",
+                86
+              ],
+              [
+                "5f005000",
+                59
+              ]
+            ]
+          },
+          "65536": {
+            "boundaries_sampled": 6912,
+            "top3_header_share": 0.248,
+            "distinct_headers": 3779,
+            "zero_page_share": 0.002,
+            "top_headers": [
+              [
+                "00ff4141",
+                1322
+              ],
+              [
+                "650000ff",
+                205
+              ],
+              [
+                "00000000",
+                189
+              ],
+              [
+                "ff0400fd",
+                136
+              ],
+              [
+                "5f005000",
+                105
+              ]
+            ]
+          }
+        }
+      },
+      "page_size_used": 512,
+      "pages_total": 884736,
+      "pages_all_zero": 6,
+      "page_entropy_histogram": {
+        "very_low": 27314,
+        "zero_or_constant": 7615,
+        "low_structured": 815268,
+        "mixed_text_binary": 2419,
+        "dense_binary": 32097,
+        "random_like": 23
+      },
+      "ascii_runs_total": 3435567,
+      "ascii_wordlike_distinct": 361691,
+      "utf16le_runs_total": 1117493,
+      "utf16le_wordlike_distinct": 1804,
+      "keyword_hits": {
+        "MagIC": 5,
+        "Determination": 5,
+        "Sample": 5,
+        "Method": 5,
+        "Anion": 5,
+        "Cation": 5,
+        "Conductivity": 5,
+        "Peak": 5,
+        "Result": 5,
+        "Calibration": 5,
+        "Sulfate": 5,
+        "Sodium": 5,
+        "Potassium": 5,
+        "Ammonium": 5,
+        "User": 1,
+        "Eluent": 5,
+        "Suppressor": 5
+      },
+      "sniff_on_sampled_bytes": {
+        "sample_bytes": 1048576,
+        "date7_like": 6,
+        "java_epoch_millis_like": 420,
+        "plausible_doubles_8aligned": 3532
+      },
+      "top_strings_preview": [
+        "java.lang.Enum",
+        "*mnet.device.mdevices.usbdevices.ModuleEnum",
+        "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+        "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+        "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+        "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+        "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ",
+        "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+        "mnet.data.devinfo.DeviceEnum",
+        "mnet.data.devinfo.StmtEnum",
+        "8mnet.modules.methods.model.properties.SampleDataPropEnum",
+        "HP_PUMP",
+        "5mnet.modules.methods.model.stmt.DBOnOffStmt$Parameter",
+        "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "940 Professional IC Vario 1",
+        "DGEN_P_MIN",
+        "889 IC Sample Center 1",
+        "DGEN_P_NOTDEFINED_BLANK",
+        "DGEN_BLANK",
+        "PHOSPHATE BINDING CAPACITY",
+        "945 Professional Detector Vario 1",
+        "DGEN_P_PPM",
+        "DGEN_P_PERCENT",
+        "Injector",
+        "$DGEN_BLANK",
+        "DGEN_P_AUTO",
+        "PRESSURE",
+        "Pump 1",
+        "PHOSPHATE",
+        "Magic Net 2025",
+        "Conductivity detector 1",
+        "Needle",
+        "Syringe",
+        "General",
+        "Hardware assignment",
+        "Degasser",
+        "Thermostat",
+        "Cooling",
+        "Compressor"
+      ],
+      "class_candidates_count": 3,
+      "verdict": "PLAINTEXT object store: schema/analyte vocabulary is readable (17 keywords, 363495 distinct word-like strings). Not encrypted; decoding means mapping the FastObjects page/object layout."
+    },
+    {
+      "file": "objects.idx",
+      "bytes": 67108864,
+      "mib": 64.0,
+      "exact_mib_multiple": true,
+      "header_hex_256": "00000300000069a00000000000000002000000000000dccdcfd801000000ffffffff0c006f626a656374732e69647800010000e90701020a220ae9070a0e0a191c725fac8300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "header_ascii_256": "......i.............................objects.idx.........\"........r_.............................................................................................................................................................................................",
+      "sampled_entropy": 4.828,
+      "sampled_printable_ratio": 0.206,
+      "last_nonzero_offset": 67108864,
+      "trailing_zero_bytes": 0,
+      "page_size_detection": {
+        "page_size_guess": 512,
+        "best_top3_share": 0.036,
+        "scores": {
+          "512": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "1024": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "2048": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "4096": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "8192": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "16384": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.036,
+            "distinct_headers": 3950,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                130
+              ],
+              [
+                "00fe0140",
+                16
+              ],
+              [
+                "50505050",
+                3
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "1f000000",
+                1
+              ]
+            ]
+          },
+          "32768": {
+            "boundaries_sampled": 2048,
+            "top3_header_share": 0.036,
+            "distinct_headers": 1977,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                65
+              ],
+              [
+                "00fe0140",
+                8
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "3f000000",
+                1
+              ],
+              [
+                "004600fe",
+                1
+              ]
+            ]
+          },
+          "65536": {
+            "boundaries_sampled": 1024,
+            "top3_header_share": 0.034,
+            "distinct_headers": 992,
+            "zero_page_share": 0.0,
+            "top_headers": [
+              [
+                "58585858",
+                32
+              ],
+              [
+                "00fe0140",
+                2
+              ],
+              [
+                "00000300",
+                1
+              ],
+              [
+                "004600fe",
+                1
+              ],
+              [
+                "ff000000",
+                1
+              ]
+            ]
+          }
+        }
+      },
+      "page_size_used": 512,
+      "pages_total": 131072,
+      "pages_all_zero": 0,
+      "page_entropy_histogram": {
+        "very_low": 7463,
+        "zero_or_constant": 9998,
+        "low_structured": 113587,
+        "mixed_text_binary": 24
+      },
+      "ascii_runs_total": 30609,
+      "ascii_wordlike_distinct": 735,
+      "utf16le_runs_total": 41,
+      "utf16le_wordlike_distinct": 21,
+      "keyword_hits": {
+        "Determination": 1,
+        "Sample": 1,
+        "Method": 1,
+        "Chromatogram": 1,
+        "Calibration": 1,
+        "User": 1,
+        "Column": 1,
+        "Eluent": 1,
+        "Batch": 1
+      },
+      "sniff_on_sampled_bytes": {
+        "sample_bytes": 1048576,
+        "date7_like": 2,
+        "java_epoch_millis_like": 321,
+        "plausible_doubles_8aligned": 1622
+      },
+      "top_strings_preview": [
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "pPp,pXplp~",
+        "pXpDpPpJ",
+        "8@,p<p,pXpJ",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "pXp,p`p,pXplpJ",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "SEVELAMER HCL-PHOSPHATE BINDING CAPACITY",
+        "i HCL-PHOSPHATE BINDING CAPACITY",
+        "DBAnalysisCalib",
+        "nalysisCalib",
+        "DGEN_BLANK",
+        "ional Detecto",
+        "LIRAGLUTIDE-AMMONIUM ION AND SODIUM ION",
+        "P_AUTO",
+        "alysisCalib",
+        "lysisCalib",
+        "POSITION",
+        "940 Professiona",
+        "DGEN_BL",
+        "DMET_EVAL_PP_HV",
+        "DMET_EVAL_PP_",
+        "DMET_E",
+        "cision",
+        "UTIDE-AMMONIUM ION AND SODIUM ION",
+        "TOPIRAMATE USP-LIMIT OF SULFAMATE & SULFATE",
+        "DGEN_SD",
+        "DGEN_SD_DILUTIO"
+      ],
+      "class_candidates_count": 4,
+      "verdict": "PLAINTEXT object store: schema/analyte vocabulary is readable (9 keywords, 756 distinct word-like strings). Not encrypted; decoding means mapping the FastObjects page/object layout."
+    },
+    {
+      "file": "data0000.rcy",
+      "bytes": 16777216,
+      "mib": 16.0,
+      "exact_mib_multiple": true,
+      "header_hex_256": "0161acac04610000e90701020a220ae9070a0e0a191c01000000000000000040000000000000004000000000000000040000000000000200000059b001004000000069a0000000020000a893490300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000610001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "header_ascii_256": ".a...a.......\".................@.......@..................Y...@...i.........I.....................................................a.............................................................................................................................",
+      "sampled_entropy": 4.723,
+      "sampled_printable_ratio": 0.358,
+      "last_nonzero_offset": 16777216,
+      "trailing_zero_bytes": 0,
+      "page_size_detection": {
+        "page_size_guess": 512,
+        "best_top3_share": 0.277,
+        "scores": {
+          "512": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.253,
+            "distinct_headers": 1627,
+            "zero_page_share": 0.112,
+            "top_headers": [
+              [
+                "00000000",
+                804
+              ],
+              [
+                "45454545",
+                125
+              ],
+              [
+                "50505050",
+                106
+              ],
+              [
+                "2c000000",
+                99
+              ],
+              [
+                "42424242",
+                72
+              ]
+            ]
+          },
+          "1024": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.253,
+            "distinct_headers": 1627,
+            "zero_page_share": 0.112,
+            "top_headers": [
+              [
+                "00000000",
+                804
+              ],
+              [
+                "45454545",
+                125
+              ],
+              [
+                "50505050",
+                106
+              ],
+              [
+                "2c000000",
+                99
+              ],
+              [
+                "42424242",
+                72
+              ]
+            ]
+          },
+          "2048": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.253,
+            "distinct_headers": 1627,
+            "zero_page_share": 0.112,
+            "top_headers": [
+              [
+                "00000000",
+                804
+              ],
+              [
+                "45454545",
+                125
+              ],
+              [
+                "50505050",
+                106
+              ],
+              [
+                "2c000000",
+                99
+              ],
+              [
+                "42424242",
+                72
+              ]
+            ]
+          },
+          "4096": {
+            "boundaries_sampled": 4096,
+            "top3_header_share": 0.253,
+            "distinct_headers": 1627,
+            "zero_page_share": 0.112,
+            "top_headers": [
+              [
+                "00000000",
+                804
+              ],
+              [
+                "45454545",
+                125
+              ],
+              [
+                "50505050",
+                106
+              ],
+              [
+                "2c000000",
+                99
+              ],
+              [
+                "42424242",
+                72
+              ]
+            ]
+          },
+          "8192": {
+            "boundaries_sampled": 2048,
+            "top3_header_share": 0.251,
+            "distinct_headers": 930,
+            "zero_page_share": 0.108,
+            "top_headers": [
+              [
+                "00000000",
+                395
+              ],
+              [
+                "45454545",
+                60
+              ],
+              [
+                "50505050",
+                59
+              ],
+              [
+                "2c000000",
+                45
+              ],
+              [
+                "2b000000",
+                34
+              ]
+            ]
+          },
+          "16384": {
+            "boundaries_sampled": 1024,
+            "top3_header_share": 0.256,
+            "distinct_headers": 513,
+            "zero_page_share": 0.112,
+            "top_headers": [
+              [
+                "00000000",
+                195
+              ],
+              [
+                "50505050",
+                36
+              ],
+              [
+                "45454545",
+                31
+              ],
+              [
+                "2c000000",
+                24
+              ],
+              [
+                "2b000000",
+                15
+              ]
+            ]
+          },
+          "32768": {
+            "boundaries_sampled": 512,
+            "top3_header_share": 0.277,
+            "distinct_headers": 276,
+            "zero_page_share": 0.117,
+            "top_headers": [
+              [
+                "00000000",
+                106
+              ],
+              [
+                "50505050",
+                20
+              ],
+              [
+                "45454545",
+                16
+              ],
+              [
+                "2c000000",
+                11
+              ],
+              [
+                "2b000000",
+                8
+              ]
+            ]
+          },
+          "65536": {
+            "boundaries_sampled": 256,
+            "top3_header_share": 0.273,
+            "distinct_headers": 159,
+            "zero_page_share": 0.109,
+            "top_headers": [
+              [
+                "00000000",
+                51
+              ],
+              [
+                "50505050",
+                10
+              ],
+              [
+                "45454545",
+                9
+              ],
+              [
+                "4c4c4c4c",
+                5
+              ],
+              [
+                "2c000000",
+                5
+              ]
+            ]
+          }
+        }
+      },
+      "page_size_used": 512,
+      "pages_total": 32768,
+      "pages_all_zero": 17,
+      "page_entropy_histogram": {
+        "very_low": 7436,
+        "zero_or_constant": 465,
+        "low_structured": 23222,
+        "dense_binary": 1592,
+        "random_like": 1,
+        "mixed_text_binary": 52
+      },
+      "ascii_runs_total": 102218,
+      "ascii_wordlike_distinct": 12650,
+      "utf16le_runs_total": 26593,
+      "utf16le_wordlike_distinct": 412,
+      "keyword_hits": {
+        "MagIC": 5,
+        "Sample": 5,
+        "Method": 5,
+        "Cation": 5,
+        "Conductivity": 5,
+        "Peak": 5,
+        "Result": 5,
+        "Calibration": 5,
+        "Sodium": 5,
+        "Potassium": 5,
+        "Ammonium": 5
+      },
+      "sniff_on_sampled_bytes": {
+        "sample_bytes": 1048576,
+        "date7_like": 14,
+        "java_epoch_millis_like": 982,
+        "plausible_doubles_8aligned": 4440
+      },
+      "top_strings_preview": [
+        "java.lang.Enum",
+        "*mnet.device.mdevices.usbdevices.ModuleEnum",
+        "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+        "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+        "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+        "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ",
+        "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+        "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+        "mnet.data.devinfo.DeviceEnum",
+        "mnet.data.devinfo.StmtEnum",
+        "8mnet.modules.methods.model.properties.SampleDataPropEnum",
+        "HP_PUMP",
+        "5mnet.modules.methods.model.stmt.DBOnOffStmt$Parameter",
+        "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "889 IC Sample Center 1",
+        "DGEN_P_MIN",
+        "940 Professional IC Vario 1",
+        "DGEN_BLANK",
+        "Cation",
+        "DGEN_P_NOTDEFINED_BLANK",
+        "945 Professional Detector Vario 1",
+        "Ammonium ion",
+        "DGEN_P_PPM",
+        "Sodium ion",
+        "Injector",
+        "DGEN_P_PERCENT",
+        "Magic Net 2025",
+        "$DGEN_BLANK",
+        "General",
+        "Conductivity detector 1",
+        "Pump 1",
+        "Needle",
+        "Syringe",
+        "Cation.",
+        "RS.Cation..A044",
+        "RS.Cation..A05",
+        "RS.Cation..A10",
+        "RS.Cation..A134",
+        "RS.Cation..A324"
+      ],
+      "class_candidates_count": 5,
+      "verdict": "PLAINTEXT object store: schema/analyte vocabulary is readable (11 keywords, 13062 distinct word-like strings). Not encrypted; decoding means mapping the FastObjects page/object layout."
+    }
+  ],
+  "dictionary_candidates": [],
+  "directory_listing": [
+    "DBInfo (69 bytes)",
+    "eventlog\\f0000000.ptd (434519 bytes)",
+    "objects.dat (452984832 bytes)",
+    "objects.idx (67108864 bytes)",
+    "recovery\\data0000.rcy (16777216 bytes)"
+  ]
+}
