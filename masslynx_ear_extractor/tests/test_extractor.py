@@ -139,3 +139,61 @@ def test_pdf_audit_parser():
     assert rows[0]["index"] == "140996"
     assert rows[1]["type"] == "Log in"
     assert rows[1]["user"] == "nileshnile"
+
+
+def test_ear_records_decode_and_filter(tmp_path):
+    import ear_crypto, ear_format
+    import extract_ear_records as er
+    key = bytes.fromhex("00112233445566778899aabb")
+    marker = ear_format.FRAMING_MARKER
+    plains = [
+        b"Permission 18-10-2025 09:15:00 QuanLynx - Quantify samples Allowed "
+        b"sachingade MASSLYNX-PC LUPIN 18-10-2025 09:15:00 4006 140100 74",
+        b"Permission 05-09-2025 10:00:00 QuanLynx - Add/Modify/Delete peaks "
+        b"DENIED sachingade MASSLYNX-PC LUPIN 05-09-2025 10:00:00 4004 139000 74",
+    ]
+    ear = tmp_path / "fake.ear"
+    ear.write_bytes(marker.join(ear_crypto.xor(key, p) for p in plains))
+    import json as _j
+    (tmp_path / "fake.earkey.json").write_text(_j.dumps({
+        "format": "ear-extractor/keyspec", "cipher": "xor",
+        "key_hex": key.hex(), "scope": "per-chunk", "strip_marker": True}))
+
+    # field parsing (parse_record takes DECRYPTED/plaintext bytes)
+    rec = er.parse_record(plains[0])
+    assert rec["type"] == "Permission"
+    assert rec["user"] == "sachingade"
+    assert rec["outcome"] == "Allowed"
+    assert rec["event_id"] == "4006" and rec["index"] == "140100"
+
+    # end-to-end: October only
+    out = tmp_path / "out"
+    rc = er.main(["--src", str(ear), "--res-dir", str(out),
+                  "--from-date", "2025-10-01", "--to-date", "2025-10-31"])
+    assert rc == 0
+    text = (out / "ear_records.csv").read_text(encoding="utf-8-sig")
+    assert "140100" in text and "139000" not in text  # Sep excluded
+
+    # where filter: outcome=DENIED -> only the Sep record
+    out2 = tmp_path / "out2"
+    er.main(["--src", str(ear), "--res-dir", str(out2),
+             "--where", "outcome=DENIED"])
+    t2 = (out2 / "ear_records.csv").read_text(encoding="utf-8-sig")
+    assert "139000" in t2 and "140100" not in t2
+
+
+def test_ear_records_wrong_key_yields_nothing(tmp_path):
+    import ear_crypto, ear_format
+    import extract_ear_records as er
+    marker = ear_format.FRAMING_MARKER
+    plain = b"Permission 18-10-2025 09:15:00 X Allowed u MASSLYNX-PC LUPIN " \
+            b"18-10-2025 09:15:00 1 2 3"
+    ear = tmp_path / "f.ear"
+    ear.write_bytes(marker.join([ear_crypto.xor(b"\x11" * 8, plain)]))
+    import json as _j
+    (tmp_path / "f.earkey.json").write_text(_j.dumps({
+        "format": "ear-extractor/keyspec", "cipher": "xor",
+        "key_hex": "00", "scope": "per-chunk", "strip_marker": True}))
+    # wrong key -> parse_record returns None -> exit 3, no rows
+    rc = er.main(["--src", str(ear), "--res-dir", str(tmp_path / "o")])
+    assert rc == 3

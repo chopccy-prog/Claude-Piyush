@@ -69,6 +69,41 @@ to the supported-export route — it never pretends to have decoded anything.
   `masslynx_bridge` project in this repository consumes those and forwards them
   to your ERP continuously.
 
+## Run directly on any .ear (date range + conditions + server push)
+
+`extract_ear_records.py` is the deployable extractor, same shape as the
+Access-database tool: it reads any `.ear`, decrypts each record through a
+keyspec, parses the fields, filters by date range and conditions, and writes CSV
+or JSON and/or pushes to the server. No PDF step.
+
+```bash
+python3 extract_ear_records.py --src Backup_18102025.ear --res-dir out \
+    --from-date 2025-10-01 --to-date 2025-10-31 \
+    --where user=sachingade type=Permission outcome=DENIED \
+    --format csv \
+    --push-config ../masslynx_bridge/config.yaml   # optional: send to server
+```
+
+- Filters: `--from-date` / `--to-date` (YYYY-MM-DD) and repeatable `--where
+  field=value` over any output field.
+- Output: `--format csv|json`; `--push-config` sends rows to your server via the
+  `masslynx_bridge` sink layer (HTTPS/DB).
+- **The one required input is the body cipher.** Drop a `*.earkey.json` keyspec
+  (see `ear_crypto.py`) next to the `.ear`. Without it the tool runs in **plan
+  mode**: it reports the container and exactly what it will extract, and writes
+  no invented data. With a wrong key it writes nothing (the parser rejects
+  bytes that are not a valid record), so it never emits garbage.
+
+Once a correct keyspec exists, this produces the same clean schema as the audit
+report, straight from the `.ear`, repeatably, with no PDF.
+
+**Status of the body cipher:** the record *header* keystream is recovered (it
+decrypts a fixed zero field); the record *body* key is not yet solved. The
+LogLynx report you exported is the known-plaintext needed to solve it — see
+`docs/FINDINGS.md` and the decryption brief. Recovering that key is
+cryptanalysis that must be done in an environment permitting it; this tool then
+applies it.
+
 ## LogLynx audit PDF → clean CSV (recommended, no key needed)
 
 MassLynx's own LogLynx viewer can print/export the audit trail to a PDF report.
