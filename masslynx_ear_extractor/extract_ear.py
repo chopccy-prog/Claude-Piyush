@@ -31,6 +31,7 @@ Usage
 from __future__ import annotations
 
 import argparse
+import collections
 import csv
 import glob
 import json
@@ -106,6 +107,28 @@ def salvage(ear_file: str, res_dir: str, min_str: int = 4) -> dict:
         chunk_rows,
     )
 
+    # Record-structure inventory: group records by (type byte, 11-byte header
+    # signature). This is structural parsing only (byte counting), and shows how
+    # the ~143k records break down into a handful of record types.
+    sigs = collections.Counter()
+    for c in chunks:
+        raw = data[c.offset:c.offset + c.length]
+        if len(raw) >= 12:
+            sigs[(raw[0], raw[1:12])] += 1
+    type_rows = [
+        {
+            "type_byte": "0x%02x" % b0,
+            "header_sig_hex": hdr.hex(),
+            "record_count": n,
+        }
+        for (b0, hdr), n in sigs.most_common()
+    ]
+    write_csv(
+        os.path.join(res_dir, "ear_record_types.csv"),
+        ["type_byte", "header_sig_hex", "record_count"],
+        type_rows,
+    )
+
     # Readable ASCII runs across the whole file (excluding the pure marker) so a
     # human can eyeball whether any words survive. On an encrypted .ear this is
     # essentially just the framing marker - which is the point.
@@ -147,9 +170,11 @@ def salvage(ear_file: str, res_dir: str, min_str: int = 4) -> dict:
         },
         "verdict": report.verdict,
         "readable_string_count": len(str_rows),
+        "record_type_count": len(type_rows),
         "outputs": {
             "ear_chunks.csv": len(chunk_rows),
             "ear_strings.csv": len(str_rows),
+            "ear_record_types.csv": len(type_rows),
         },
     }
     with open(os.path.join(res_dir, "_extract_summary.json"), "w",

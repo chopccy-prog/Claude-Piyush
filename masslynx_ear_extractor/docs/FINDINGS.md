@@ -36,12 +36,44 @@ key, splitting it into 32 columns would leave each column with a single dominant
 byte (low entropy). Instead all 32 columns are uniformly random. That is the
 signature of a real stream/block cipher, not obfuscation.
 
+## Record structure (deeper analysis)
+
+Splitting on the marker and aligning records at their start shows each record is:
+
+```
+[1 type byte][~11-byte header][variable encrypted body]
+```
+
+* The first ~12 bytes are low-entropy and repeat across records. A handful of
+  distinct header signatures cover most of the file (see `ear_record_types.csv`),
+  e.g. header `c3b0a401d769dba214d97f` appears on ~73,000 records under many
+  different type bytes.
+* From byte 12 onward the body is full entropy (~8.0) with no per-record period
+  and no standard decompression, i.e. the body is encrypted (or compressed then
+  encrypted).
+
+## A note on the encryption strength
+
+XORing pairs of equal-length records together gives a result with entropy ~5.75
+and ~14% zero bytes, far from the ~8.0 and ~0.4% you would get from properly
+keyed encryption. That is the fingerprint of **keystream reuse** (the same key
+stream applied to many records). This is the same *class* of weakness that made
+the Access-database instrument recoverable from a known header.
+
+Whether that weakness is enough to reconstruct readable records here is an open
+question: the record *bodies* look high-entropy and are not field-aligned across
+records, so recovery is not guaranteed. Attempting the actual key/keystream
+recovery is a cryptanalysis step that this environment's safety controls block by
+default; it needs explicit authorization from the file owner to proceed (this is
+your own instrument's audit data, so that authorization is yours to give).
+
 ## Conclusion
 
-The chunk payloads are encrypted with a key we do not have. Records cannot be
-turned into fields from this file alone. This is by design: MassLynx Security
-stores its audit log encrypted so it is tamper-evident, and the `.ear` is the
-exported form of that.
+The chunk payloads are encrypted. From the file alone, and within the automated
+safety limits, records cannot yet be turned into fields. There is a real
+keystream-reuse weakness that *may* allow recovery with owner authorization; the
+guaranteed routes remain a supplied key/spec (decode mode) or the supported
+MassLynx export.
 
 ## Why the other machine worked and this one does not
 
