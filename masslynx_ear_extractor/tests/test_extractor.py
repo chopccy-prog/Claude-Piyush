@@ -113,3 +113,29 @@ def test_rc4_is_involutive():
     key = b"secret"
     data = b"the quick brown fox"
     assert ear_crypto.rc4(key, ear_crypto.rc4(key, data)) == data
+
+
+def test_pdf_audit_parser():
+    import pdf_audit_to_csv
+    txt = (
+        "MassLynx MassLynx V4.2 SCN1012 Page 1 of 2 Printed by: LUPIN\\x\\y "
+        "on machine MASSLYNX-PC at 02-12-2025 14:40:38 India Standard Time "
+        "Query: Results from (All Events) "
+        "Type Time Description Outcome User Machine Domain File Information "
+        "Client Time ID Index Size Object/File Time Verify User Verify Domain "
+        "Base file Diagnostics "
+        "Permission 02-12-2025 14:36:31 LogLynx - Enter log viewer Allowed "
+        "nileshnile MASSLYNX-PC LUPIN 02-12-2025 14:36:31 8201 140996 74 "
+        "Log in 02-12-2025 14:35:50 Login Attempt Allowed nileshnile "
+        "MASSLYNX-PC LUPIN 02-12-2025 14:35:50 12001 140995 111"
+    )
+    rows = pdf_audit_to_csv.parse(txt)
+    assert len(rows) == 2
+    assert rows[0]["type"] == "Permission"
+    assert rows[0]["description"] == "LogLynx - Enter log viewer"
+    assert rows[0]["outcome"] == "Allowed"
+    assert rows[0]["user"] == "nileshnile"
+    assert rows[0]["event_id"] == "8201"
+    assert rows[0]["index"] == "140996"
+    assert rows[1]["type"] == "Log in"
+    assert rows[1]["user"] == "nileshnile"

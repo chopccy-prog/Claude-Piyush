@@ -69,6 +69,28 @@ to the supported-export route — it never pretends to have decoded anything.
   `masslynx_bridge` project in this repository consumes those and forwards them
   to your ERP continuously.
 
+## LogLynx audit PDF → clean CSV (recommended, no key needed)
+
+MassLynx's own LogLynx viewer can print/export the audit trail to a PDF report.
+That report is the readable, validatable audit data, and it needs no decryption.
+Convert it to one clean CSV row per event:
+
+```bash
+# 1) dump the PDF text (any one of these)
+pdftotext -layout "LCMS Audit.pdf" audit_full.txt
+python3 -c "import pdfplumber; print('\n'.join((p.extract_text() or '') \
+    for p in pdfplumber.open('LCMS Audit.pdf').pages))" > audit_full.txt
+
+# 2) parse to CSV
+python3 pdf_audit_to_csv.py audit_full.txt audit.csv
+```
+
+Columns: `type, time, description, outcome, user, machine, domain,
+file_information, client_time, event_id, index, size`. The `index` field is the
+sequential audit record number, so it de-duplicates and orders the whole trail.
+This is the fastest route to give a client cross-checkable records, and the same
+CSV doubles as known-plaintext reference for any `.ear` decoding work.
+
 ## JSON → CSV for cross-checking
 
 The Access extractors write one JSON per table. Clients cross-check in Excel, so
