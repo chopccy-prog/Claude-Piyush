@@ -190,3 +190,44 @@ def test_read_field_types():
     assert fo_decode.read_field(buf, 16, "lstring", "utf-16-le") == "abc"
     assert fo_decode.read_field(buf, 23, "utf16z", "utf-16-le") == "hi"
     assert fo_decode.read_field(buf, 16, "hex:4", "utf-16-le") == "03000000"
+
+
+# ---------------------------------------------------------------- java serialization
+
+def test_javaser_parses_jdk_generated_stream():
+    import fo_javaser as J
+    buf = open(os.path.join(os.path.dirname(HERE), "samples", "java_sample.ser"), "rb").read()
+    vals, end = J.loads(buf, 0, all_contents=True)
+    assert end == len(buf) and len(vals) == 6
+    s = vals[0]
+    assert s.classname == "Gen$Sample"
+    assert s.fields["ident"] == "SMP-001" and s.fields["boxed"].value == 17
+    peaks = s.fields["peaks"].value
+    assert [p.fields["name"] for p in peaks] == ["Chloride", "Sulfate", "Chloride"]
+    assert peaks[0] is peaks[2]                       # back-reference resolved
+    assert peaks[1].fields["mode"].name == "PERCENT"
+    assert s.fields["props"].value["method"] == "PHOSPHATE BINDING CAPACITY"
+    assert s.fields["when"].value.startswith("2025-01-01 00:00:03")
+    assert s.annotations[0][0] == bytes.fromhex("000004d20006637573746f6d")
+    assert vals[1].name == "PPM" and vals[2] == "second" and vals[3] == [1, 2, 3]
+    assert vals[4] == ["x", "y"] and abs(vals[5].value - 123.456) < 1e-9
+    plain = J.to_plain(s)
+    assert plain["peaks"][1]["conc"] == 1.5 and plain["__class__"] == "Gen$Sample"
+
+
+def test_javaser_scan_finds_streams_in_junk(tmp_path):
+    import fo_javaser as J
+    import fo_carve
+    a = open(os.path.join(os.path.dirname(HERE), "samples", "java_enum.ser"), "rb").read()
+    b = open(os.path.join(os.path.dirname(HERE), "samples", "java_sample.ser"), "rb").read()
+    buf = b"\x00" * 100 + a + b"junkjunk" + b + b"\xac\xed\x00\x05\x73\x00" + b"\xff" * 50
+    hits = list(J.scan(buf))
+    assert [h[3] is None for h in hits] == [True, True, False]
+    assert hits[0][0] == 100 and hits[1][0] == 100 + len(a) + 8
+    p = tmp_path / "blob.dat"
+    p.write_bytes(buf)
+    s = fo_carve.carve(str(p), str(tmp_path / "carve"), 100, False)
+    assert s["streams_found"] == 3 and s["streams_decoded"] == 2 and s["streams_failed"] == 1
+    assert (tmp_path / "carve" / "java_classes.csv").exists()
+    lines = (tmp_path / "carve" / "java_objects.jsonl").read_text(encoding="utf-8").splitlines()
+    assert len(lines) == 2 and '"Gen$Sample"' in lines[1]
