@@ -17,7 +17,48 @@ invoicing/
 those files hold PAN, bank details and client amounts. Back them up somewhere
 private, such as Google Drive.
 
-## Raising the next invoice
+## Quick start
+
+### Option A: ask Claude (easiest)
+1. Start a new Claude Code session.
+2. Share the Google Drive "Invoices" folder link, plus the assignment name,
+   amount and any advance received.
+3. Claude downloads the generator and data from Drive, creates the next
+   invoice (e.g. `SKS/2026-27/003`), and uploads the PDF to
+   **Issued Invoices** along with the updated `register.csv`.
+
+### Option B: run it yourself
+1. Download the **Invoice Generator** folder from Google Drive.
+2. Install the one dependency:
+   ```bash
+   pip install jinja2
+   ```
+3. Create the next invoice file (it picks the next number automatically):
+   ```bash
+   python make_invoice.py --new proventech
+   ```
+4. Open the new file in `data/invoices/` and fill in the title,
+   description, rate and any `adjustments` (advances).
+5. Generate the invoice:
+   ```bash
+   python make_invoice.py data/invoices/SKS-2026-27-003.json
+   ```
+6. If no PDF appears, open the `.html` file from `output/` in Chrome and use
+   **Print → Save as PDF** with A4 paper, margins None and Background
+   graphics on.
+7. Upload the PDF and `output/register.csv` to **Issued Invoices**, and the
+   new invoice `.json` to `data/invoices/` on Drive.
+
+### Google Drive layout
+```
+Invoices/
+  Issued Invoices/        final PDFs + register.csv
+  Invoice Generator/      this folder: scripts, template, data/
+```
+Keep the Drive folder private: `data/` holds the seller's PAN, bank
+details and signature.
+
+## Reference
 
 ```bash
 pip install jinja2
