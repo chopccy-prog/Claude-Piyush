@@ -1,0 +1,35 @@
+{
+  "name": "Asha Rao",
+  "legal_name": "Asha Rao",
+  "monogram": "AR",
+  "tagline": "Independent Consultant · Instrument Data Integration",
+  "invoice_prefix": "AR",
+  "address": [
+    "12 Example Street",
+    "Pune 411001, Maharashtra",
+    "India"
+  ],
+  "pan": "ABCDE1234F",
+  "email": "asha@example.com",
+  "phone": "+91 90000 00000",
+  "default_payment_terms_days": 15,
+  "gst": {
+    "registered": false,
+    "gstin": "",
+    "state_code": "",
+    "rate": 18,
+    "note": "The service provider is not registered under GST; accordingly, no GST is charged on this invoice."
+  },
+  "bank": {
+    "account_name": "Asha Rao",
+    "bank_name": "Example Bank",
+    "account_number": "000000000000",
+    "ifsc": "EXMP0000001",
+    "branch": "Pune Main"
+  },
+  "standard_terms": [
+    "Payment by NEFT / RTGS / IMPS to the account shown. Please quote the invoice number as the payment reference.",
+    "TDS, if applicable under the Income-tax Act, may be deducted; kindly share the TDS certificate for the same."
+  ],
+  "signature_image": ""
+}

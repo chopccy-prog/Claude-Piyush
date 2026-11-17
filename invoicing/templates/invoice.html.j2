@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ inv.number }} · {{ client.name }}</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #1b2233;
+    --muted: #6b7385;
+    --line: #e4e1d8;
+    --navy: #14213d;
+    --gold: #b08d57;
+    --gold-soft: #f6f1e7;
+    --paper: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ece9e2; }
+  @media print { html, body { background: #fff; } }
+  body { font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+         color: var(--ink); font-size: 9pt; line-height: 1.4;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; margin: 0 auto; background: var(--paper);
+          position: relative; overflow: hidden; }
+  @media screen { .page { margin: 24px auto; box-shadow: 0 10px 40px rgba(0,0,0,.12); } }
+
+  /* header band */
+  .band { background: var(--navy); color: #fff; padding: 9mm 15mm 7mm;
+          display: flex; justify-content: space-between; align-items: flex-end; }
+  .brand { display: flex; gap: 5mm; align-items: center; }
+  .mono { width: 15mm; height: 15mm; border: 1.2px solid var(--gold); border-radius: 50%;
+          display: grid; place-items: center; font-family: Georgia, "Times New Roman", serif;
+          color: var(--gold); font-size: 15pt; letter-spacing: .5px; }
+  .brand h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400;
+              font-size: 19pt; letter-spacing: .4px; }
+  .brand .tag { color: #c9ccd6; font-size: 7.6pt; letter-spacing: 1.6px; text-transform: uppercase;
+                margin-top: 1mm; }
+  .doc { text-align: right; }
+  .doc .kind { font-size: 8pt; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; }
+  .doc .no { white-space: nowrap; font-size: 15pt; font-weight: 600; margin-top: 1mm; letter-spacing: .3px; }
+  .rule { height: 1.4mm; background: linear-gradient(90deg, var(--gold), #d8c09a 60%, var(--gold)); }
+
+  .wrap { padding: 7mm 15mm 0; }
+
+  /* meta strip */
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line);
+          border-radius: 2mm; overflow: hidden; }
+  .meta > div { padding: 2.6mm 4mm; border-right: 1px solid var(--line); }
+  .meta > div:last-child { border-right: 0; background: var(--gold-soft); }
+  .lbl { font-size: 7pt; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+  .val { font-weight: 600; margin-top: .6mm; }
+
+  /* parties */
+  .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; margin-top: 5mm; }
+  .party h3 { margin: 0 0 2mm; font-size: 7.4pt; letter-spacing: 2px; text-transform: uppercase;
+              color: var(--gold); font-weight: 600; padding-bottom: 1.6mm; border-bottom: 1px solid var(--line); }
+  .party .name { font-size: 11.5pt; font-weight: 600; color: var(--navy); }
+  .party .addr { color: #3c4457; margin-top: .8mm; }
+  .party table { margin-top: 2mm; border-collapse: collapse; }
+  .party td { padding: .3mm 0; vertical-align: top; }
+  .party td:first-child { color: var(--muted); width: 22mm; }
+
+  /* engagement */
+  .engage { margin-top: 5mm; padding: 3mm 4.5mm; background: #f8f7f3; border-left: 2.2px solid var(--gold);
+            border-radius: 0 2mm 2mm 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5mm 8mm; }
+  .engage .row { display: flex; gap: 3mm; }
+  .engage .row .lbl { min-width: 25mm; padding-top: .5mm; }
+
+  /* items */
+  table.items { width: 100%; border-collapse: collapse; margin-top: 6mm; }
+  .items th { font-size: 7.2pt; text-transform: uppercase; letter-spacing: 1.4px; color: #fff;
+              background: var(--navy); padding: 2.6mm 3mm; text-align: left; font-weight: 600; }
+  .items th:first-child { border-radius: 1.5mm 0 0 0; }
+  .items th:last-child { border-radius: 0 1.5mm 0 0; }
+  .items td { padding: 2.8mm 3mm; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .items .r { text-align: right; white-space: nowrap; }
+  .items .c { text-align: center; white-space: nowrap; }
+  .items .desc { font-weight: 600; color: var(--navy); }
+  .items ul { margin: 1mm 0 0; padding-left: 4mm; color: #4a5266; font-size: 8.3pt; }
+  .items li { margin: .1mm 0; }
+
+  /* totals */
+  .sum { display: grid; grid-template-columns: 1fr 84mm; gap: 8mm; margin-top: 4mm; align-items: start; }
+  .words { padding: 3.5mm 4mm; border: 1px dashed #d6cdb9; border-radius: 2mm; background: #fffdf8; }
+  .words .val { font-weight: 500; font-style: italic; color: #3c4457; }
+  table.totals { width: 100%; border-collapse: collapse; }
+  .totals td { padding: 1.4mm 0; }
+  .totals td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .totals .sep td { border-top: 1px solid var(--line); }
+  .totals .less td { color: #8a5a2b; }
+  .due { margin-top: 2mm; background: var(--navy); color: #fff; border-radius: 2mm;
+         padding: 3.6mm 4.5mm; display: flex; justify-content: space-between; align-items: center; }
+  .due .lbl { color: #d8c09a; }
+  .due .amt { font-size: 14.5pt; font-weight: 700; letter-spacing: .3px; }
+
+  /* lower */
+  .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; margin-top: 6mm; }
+  .box h4 { margin: 0 0 2mm; font-size: 7.4pt; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gold); font-weight: 600; }
+  .bank td { padding: .2mm 0; vertical-align: top; }
+  .bank td:first-child { color: var(--muted); width: 28mm; }
+  .notes { margin: 0; padding-left: 4mm; color: #4a5266; font-size: 8.2pt; }
+  .notes li { margin: .6mm 0; }
+
+  .sign { margin-top: 4mm; display: flex; justify-content: flex-start; }
+  .sign .blk { width: 64mm; text-align: center; }
+  .sign .space { height: 11mm; display: flex; align-items: flex-end; justify-content: center; }
+  .sign .space img { max-height: 15mm; }
+  .sign .line { border-top: 1px solid var(--ink); padding-top: 1.5mm; font-weight: 600; }
+  .sign .sub { color: var(--muted); font-size: 8pt; }
+
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; padding: 4mm 15mm 6mm;
+          border-top: 1px solid var(--line); display: flex; justify-content: space-between;
+          color: var(--muted); font-size: 7.6pt; }
+  .foot b { color: var(--navy); font-weight: 600; }
+
+  .ph { background: #fff1b8; color: #8a5a00; padding: 0 1mm; border-radius: 1mm; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="band">
+    <div class="brand">
+      <div class="mono">{{ seller.monogram }}</div>
+      <div>
+        <h1>{{ seller.name }}</h1>
+        <div class="tag">{{ seller.tagline }}</div>
+      </div>
+    </div>
+    <div class="doc">
+      <div class="kind">{{ "Tax Invoice" if seller.gst.registered else "Invoice" }}</div>
+      <div class="no">{{ inv.number }}</div>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="wrap">
+
+    <div class="meta">
+      <div><div class="lbl">Invoice date</div><div class="val">{{ issue_date }}</div></div>
+      <div><div class="lbl">Due date</div><div class="val">{{ due_date }}</div></div>
+      <div><div class="lbl">Invoice type</div><div class="val">{{ inv.get("type", "Professional Services") }}</div></div>
+      <div><div class="lbl">Amount due</div><div class="val">{{ balance | inr }}</div></div>
+    </div>
+
+    <div class="parties">
+      <div class="party">
+        <h3>Billed by</h3>
+        <div class="name">{{ seller.legal_name }}</div>
+        <div class="addr">{% for l in seller.address %}{{ l | ph }}<br>{% endfor %}</div>
+        <table>
+          <tr><td>PAN</td><td>{{ seller.pan | ph }}</td></tr>
+          {% if seller.gst.registered %}<tr><td>GSTIN</td><td>{{ seller.gst.gstin }}</td></tr>{% endif %}
+          <tr><td>Email</td><td>{{ seller.email | ph }}</td></tr>
+          <tr><td>Phone</td><td>{{ seller.phone | ph }}</td></tr>
+        </table>
+      </div>
+      <div class="party">
+        <h3>Billed to</h3>
+        <div class="name">{{ client.name }}</div>
+        <div class="addr">{% for l in client.address %}{{ l }}<br>{% endfor %}</div>
+        <table>
+          {% if client.get("gstin") %}<tr><td>GSTIN</td><td>{{ client.gstin | ph }}</td></tr>{% endif %}
+          {% if client.get("state") %}<tr><td>State</td><td>{{ client.state }}{% if client.get("state_code") %} ({{ client.state_code }}){% endif %}</td></tr>{% endif %}
+          {% if client.get("attention") %}<tr><td>Attention</td><td>{{ client.attention }}</td></tr>{% endif %}
+        </table>
+      </div>
+    </div>
+
+    <div class="engage">
+      <div class="row"><div class="lbl">Assignment</div><div class="val">{{ inv.title }}</div></div>
+      <div class="row"><div class="lbl">Agreement</div><div>{{ inv.reference }}</div></div>
+      {% for k, v in inv.get("reference_lines", {}).items() %}
+      <div class="row"><div class="lbl">{{ k }}</div><div>{{ v }}</div></div>
+      {% endfor %}
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th style="width:7mm">#</th>
+          <th>Description of services</th>
+          <th class="c" style="width:15mm">SAC</th>
+          <th class="c" style="width:22mm">Qty</th>
+          <th class="r" style="width:23mm">Rate</th>
+          <th class="r" style="width:25mm">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for it in items %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>
+            <div class="desc">{{ it.description }}</div>
+            {% if it.get("details") %}<ul>{% for d in it.details %}<li>{{ d }}</li>{% endfor %}</ul>{% endif %}
+          </td>
+          <td class="c">{{ it.get("sac", "") }}</td>
+          <td class="c">{{ "%g" % it.qty }} {{ it.get("unit", "") }}</td>
+          <td class="r">{{ it.rate | num }}</td>
+          <td class="r">{{ it.amount | num }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="sum">
+      <div>
+        <div class="words">
+          <div class="lbl">Amount due in words</div>
+          <div class="val">{{ balance_words }}</div>
+        </div>
+        <div class="sign">
+          <div class="blk">
+            <div class="space">{% if seller.get("signature_image") %}<img src="{{ seller.signature_image }}" alt="">{% endif %}</div>
+            <div class="line">For {{ seller.legal_name }}</div>
+            <div class="sub">Authorised Signatory · Independent Contractor</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <table class="totals">
+          <tr><td>Sub-total</td><td>{{ subtotal | inr }}</td></tr>
+          {% for t in taxes %}<tr><td>{{ t.label }}</td><td>{{ t.amount | inr }}</td></tr>{% endfor %}
+          <tr class="sep"><td><b>Invoice value</b></td><td><b>{{ total | inr }}</b></td></tr>
+          {% for a in adjustments %}
+          <tr class="less"><td>Less: {{ a.label }}</td><td>{{ (-a.amount) | inr }}</td></tr>
+          {% endfor %}
+        </table>
+        <div class="due"><span class="lbl">Balance due</span><span class="amt">{{ balance | inr }}</span></div>
+      </div>
+    </div>
+
+    <div class="lower">
+      <div class="box">
+        <h4>Payment details</h4>
+        <table class="bank">
+          <tr><td>Account name</td><td>{{ seller.bank.account_name | ph }}</td></tr>
+          <tr><td>Bank</td><td>{{ seller.bank.bank_name | ph }}</td></tr>
+          <tr><td>Account no.</td><td>{{ seller.bank.account_number | ph }}</td></tr>
+          <tr><td>IFSC</td><td>{{ seller.bank.ifsc | ph }}</td></tr>
+          <tr><td>Branch</td><td>{{ seller.bank.branch | ph }}</td></tr>
+          {% if seller.bank.get("upi") %}<tr><td>UPI</td><td>{{ seller.bank.upi | ph }}</td></tr>{% endif %}
+        </table>
+      </div>
+      <div class="box">
+        <h4>Notes &amp; terms</h4>
+        <ul class="notes">
+          {% for n in inv.get("notes", []) %}<li>{{ n }}</li>{% endfor %}
+          {% for n in seller.get("standard_terms", []) %}<li>{{ n }}</li>{% endfor %}
+          {% if not seller.gst.registered and seller.gst.get("note") %}<li>{{ seller.gst.note }}</li>{% endif %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span><b>{{ seller.name }}</b> · {{ seller.email | ph }}</span>
+    <span>{{ inv.number }} · Thank you for your business</span>
+  </div>
+</div>
+</body>
+</html>

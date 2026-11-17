@@ -1,0 +1,10 @@
+{
+  "name": "Example Client Pvt Ltd",
+  "address": [
+    "1 Business Park",
+    "Bengaluru 560001, Karnataka, India"
+  ],
+  "state": "Karnataka",
+  "state_code": "29",
+  "attention": "Accounts Payable"
+}

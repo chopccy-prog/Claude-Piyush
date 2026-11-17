@@ -1,0 +1,31 @@
+{
+  "number": "AR/2026-27/001",
+  "date": "2026-11-17",
+  "client": "example",
+  "type": "Project Consulting",
+  "title": "Sample Integration Project",
+  "reference": "Consulting Agreement, 01 Apr 2026",
+  "reference_lines": {
+    "Status": "Completed & delivered"
+  },
+  "items": [
+    {
+      "description": "Sample project — interface and data extraction (1 system)",
+      "details": [
+        "Scope item one",
+        "Scope item two"
+      ],
+      "sac": "998313",
+      "qty": 1,
+      "unit": "System",
+      "rate": 100000
+    }
+  ],
+  "adjustments": [
+    {
+      "label": "Advance received (01 May 2026)",
+      "amount": 40000
+    }
+  ],
+  "notes": []
+}

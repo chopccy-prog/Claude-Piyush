@@ -1,0 +1,3 @@
+# Real billing data (PAN, bank, client amounts) and generated invoices stay local.
+data/
+output/
