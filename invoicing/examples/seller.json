@@ -11,7 +11,7 @@
   ],
   "pan": "ABCDE1234F",
   "email": "asha@example.com",
-  "phone": "+91 90000 00000",
+  "phone": "",
   "default_payment_terms_days": 15,
   "gst": {
     "registered": false,
@@ -25,11 +25,13 @@
     "bank_name": "Example Bank",
     "account_number": "000000000000",
     "ifsc": "EXMP0000001",
-    "branch": "Pune Main"
+    "branch": "Pune Main",
+    "account_type": "Savings"
   },
   "standard_terms": [
     "Payment by NEFT / RTGS / IMPS to the account shown. Please quote the invoice number as the payment reference.",
     "TDS, if applicable under the Income-tax Act, may be deducted; kindly share the TDS certificate for the same."
   ],
-  "signature_image": ""
+  "signature_image": "",
+  "digital_note": "This is a digitally generated invoice and is valid without a physical signature."
 }

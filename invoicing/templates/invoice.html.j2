@@ -153,7 +153,7 @@
           <tr><td>PAN</td><td>{{ seller.pan | ph }}</td></tr>
           {% if seller.gst.registered %}<tr><td>GSTIN</td><td>{{ seller.gst.gstin }}</td></tr>{% endif %}
           <tr><td>Email</td><td>{{ seller.email | ph }}</td></tr>
-          <tr><td>Phone</td><td>{{ seller.phone | ph }}</td></tr>
+          {% if seller.get("phone") %}<tr><td>Phone</td><td>{{ seller.phone | ph }}</td></tr>{% endif %}
         </table>
       </div>
       <div class="party">
@@ -212,7 +212,7 @@
         </div>
         <div class="sign">
           <div class="blk">
-            <div class="space">{% if seller.get("signature_image") %}<img src="{{ seller.signature_image }}" alt="">{% endif %}</div>
+            <div class="space">{% if signature_src %}<img src="{{ signature_src }}" alt="Signature">{% endif %}</div>
             <div class="line">For {{ seller.legal_name }}</div>
             <div class="sub">Authorised Signatory · Independent Contractor</div>
           </div>
@@ -238,8 +238,9 @@
           <tr><td>Account name</td><td>{{ seller.bank.account_name | ph }}</td></tr>
           <tr><td>Bank</td><td>{{ seller.bank.bank_name | ph }}</td></tr>
           <tr><td>Account no.</td><td>{{ seller.bank.account_number | ph }}</td></tr>
+          {% if seller.bank.get("account_type") %}<tr><td>Account type</td><td>{{ seller.bank.account_type }}</td></tr>{% endif %}
           <tr><td>IFSC</td><td>{{ seller.bank.ifsc | ph }}</td></tr>
-          <tr><td>Branch</td><td>{{ seller.bank.branch | ph }}</td></tr>
+          {% if seller.bank.get("branch") %}<tr><td>Branch</td><td>{{ seller.bank.branch | ph }}</td></tr>{% endif %}
           {% if seller.bank.get("upi") %}<tr><td>UPI</td><td>{{ seller.bank.upi | ph }}</td></tr>{% endif %}
         </table>
       </div>
@@ -249,6 +250,7 @@
           {% for n in inv.get("notes", []) %}<li>{{ n }}</li>{% endfor %}
           {% for n in seller.get("standard_terms", []) %}<li>{{ n }}</li>{% endfor %}
           {% if not seller.gst.registered and seller.gst.get("note") %}<li>{{ seller.gst.note }}</li>{% endif %}
+          {% if seller.get("digital_note") %}<li>{{ seller.digital_note }}</li>{% endif %}
         </ul>
       </div>
     </div>

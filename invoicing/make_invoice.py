@@ -23,6 +23,7 @@ otherwise Node's `playwright`). Without either, open the HTML in Chrome and
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import datetime as dt
 import json
@@ -145,7 +146,18 @@ def build_context(inv_path: Path, data_dir: Path) -> dict:
         adjustments.append({**adj, "amount": float(adj["amount"])})
     balance = round(total - sum(a["amount"] for a in adjustments), 2)
 
+    signature_src = ""
+    sig = seller.get("signature_image")
+    if sig:
+        sig_path = (ROOT / sig) if not Path(sig).is_absolute() else Path(sig)
+        if sig_path.exists():
+            mime = "image/png" if sig_path.suffix.lower() == ".png" else "image/jpeg"
+            signature_src = f"data:{mime};base64," + base64.b64encode(sig_path.read_bytes()).decode()
+        else:
+            signature_src = sig  # URL
+
     return {
+        "signature_src": signature_src,
         "seller": seller,
         "client": client,
         "inv": inv,
